@@ -1,0 +1,417 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body><!-- Lien de retour vers le portfolio --><a href="../index.html" style="position:fixed;left:16px;bottom:16px;z-index:9999;padding:10px 16px;border-radius:999px;background:#0a0a0a;color:#fafafa;font:600 14px/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.25)">← Retour au portfolio</a>
+<title>Le Sosie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Mise en page : une colonne centrée, hero en miroir (deux calculateurs jumeaux), sections empilées. */
+/* Jetons de couleur et de typo repris de la charte du projet (static/css/style.css). */
+:root {
+  --bg: #f3f6f8;
+  --surface: #ffffff;
+  --ink: #172b39;
+  --ink-soft: #2c4456;
+  --muted: #5a6d7e;
+  --line: #e2e9ee;
+  --green: #087653;
+  --mint: #24ba8b;
+  --tint: #e9f6ef;
+  --tint-line: #cae6d9;
+  --gold: #d29325;
+  --danger: #a11919;
+  --danger-tint: #fff0ee;
+  --on-green: #ffffff;
+  --hero-grad: linear-gradient(110deg, #ffffff 10%, #f4fbf8 54%, #e5f5ed);
+  --font-ui: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-data: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-voice: Georgia, "Times New Roman", serif;
+}
+/* Thème sombre : mêmes jetons, valeurs adaptées (choix système). */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c171d; --surface: #12222a; --ink: #e4eef1; --ink-soft: #c3d3da;
+    --muted: #93a7b3; --line: #22363f; --green: #3fcf9a; --mint: #66e0b0;
+    --tint: #10302a; --tint-line: #1f5244; --gold: #e3ab45; --danger: #ff8a7f;
+    --danger-tint: #3a1a1a; --on-green: #062118;
+    --hero-grad: linear-gradient(110deg, #12222a 10%, #11292a 54%, #0f3329);
+    color-scheme: dark;
+  }
+}
+/* Thème sombre : même chose quand il est choisi explicitement. */
+:root[data-theme="dark"] {
+  --bg: #0c171d; --surface: #12222a; --ink: #e4eef1; --ink-soft: #c3d3da;
+  --muted: #93a7b3; --line: #22363f; --green: #3fcf9a; --mint: #66e0b0;
+  --tint: #10302a; --tint-line: #1f5244; --gold: #e3ab45; --danger: #ff8a7f;
+  --danger-tint: #3a1a1a; --on-green: #062118;
+  --hero-grad: linear-gradient(110deg, #12222a 10%, #11292a 54%, #0f3329);
+  color-scheme: dark;
+}
+
+/* Base : fond, police, gouttière latérale de 16 px minimum. */
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-ui); font-size: 16px; line-height: 1.6;
+  padding-inline: clamp(16px, 4vw, 40px); padding-block: 0 48px;
+  font-synthesis: none;
+}
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+.wrap { max-width: 1120px; margin-inline: auto; }
+h1, h2, h3 { text-wrap: balance; margin: 0; letter-spacing: -0.02em; }
+p { margin: 0; }
+.eyebrow {
+  font-size: 11px; font-weight: 750; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--green);
+}
+.muted { color: var(--muted); }
+.num { font-family: var(--font-data); font-variant-numeric: tabular-nums; }
+
+/* En-tête : logo "Le Sosie." et ancres de navigation. */
+.top {
+  display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+  padding-block: 22px; border-bottom: 1px solid var(--line);
+}
+.brand { font-size: 25px; font-weight: 800; letter-spacing: -1px; text-decoration: none; }
+.brand span { color: var(--green); }
+.brand .dot { color: var(--mint); }
+.top nav { margin-left: auto; display: flex; gap: 22px; flex-wrap: wrap; font-size: 14px; }
+.top nav a { text-decoration: none; color: var(--muted); border-bottom: 2px solid transparent; padding-block: 2px; }
+.top nav a:hover { color: var(--green); border-color: var(--green); }
+
+/* Hero : thèse à gauche, démonstration des deux calculateurs à droite. */
+.hero {
+  margin-top: 28px; background: var(--hero-grad);
+  border: 1px solid var(--tint-line); border-radius: 15px;
+  padding: clamp(24px, 4vw, 48px);
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(28px, 4vw, 56px);
+  align-items: center;
+}
+.hero-copy { display: grid; gap: 18px; min-width: 0; }
+.hero h1 { font-size: clamp(48px, 8vw, 88px); font-weight: 800; letter-spacing: -0.045em; line-height: 0.95; }
+.hero h1 span { color: var(--green); }
+.hero h1 .dot { color: var(--mint); }
+.lead { font-size: clamp(18px, 2vw, 21px); color: var(--ink-soft); max-width: 34ch; }
+.voice {
+  font-family: var(--font-voice); font-style: italic; font-size: 17px; color: var(--ink-soft);
+  display: flex; align-items: center; gap: 14px;
+}
+.voice svg { width: 76px; height: 76px; flex: none; }
+.cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+  font-weight: 650; font-size: 15px; padding: 11px 18px; border-radius: 7px;
+  border: 1px solid var(--green);
+}
+.btn.primary { background: var(--green); color: var(--on-green); }
+.btn.ghost { color: var(--green); background: transparent; }
+.btn:hover { filter: brightness(1.08); }
+
+/* Démo jumelle : la question, puis Python et SQL face à face. */
+.demo {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+  padding: 20px; display: grid; gap: 16px; min-width: 0;
+  box-shadow: 0 18px 40px -24px rgba(8, 60, 45, 0.35);
+}
+.demo-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.switch { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; gap: 2px; }
+.switch button {
+  font: inherit; font-size: 12px; font-weight: 600; border: 0; background: transparent;
+  color: var(--muted); padding: 5px 12px; border-radius: 999px; cursor: pointer;
+}
+.switch button[aria-pressed="true"] { background: var(--tint); color: var(--green); }
+.ask {
+  font-size: 15px; padding: 12px 14px; border-radius: 14px 14px 3px 14px;
+  background: var(--tint); border: 1px solid var(--tint-line); justify-self: start;
+}
+.twins { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 10px; align-items: stretch; }
+.calc {
+  border: 1px solid var(--line); border-radius: 9px; padding: 14px; display: grid; gap: 6px; min-width: 0;
+}
+.calc .label { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 650; color: var(--ink-soft); }
+.tag {
+  font-family: var(--font-data); font-size: 10px; font-weight: 700; padding: 2px 5px; border-radius: 4px;
+  background: var(--tint); color: var(--green);
+}
+.amount { font-size: clamp(24px, 3vw, 32px); font-weight: 700; letter-spacing: -0.02em; }
+.ids { font-size: 12px; color: var(--muted); }
+.link { align-self: center; font-size: 22px; color: var(--muted); }
+.verdict {
+  display: flex; gap: 10px; align-items: center; padding: 11px 14px; border-radius: 8px;
+  font-size: 14px; font-weight: 600; background: var(--tint); color: var(--green); border: 1px solid var(--tint-line);
+}
+.demo[data-state="diverge"] .verdict { background: var(--danger-tint); color: var(--danger); border-color: var(--danger); }
+.demo[data-state="diverge"] .calc.sql { border-color: var(--danger); }
+.demo[data-state="diverge"] .calc.sql .amount { color: var(--danger); }
+.demo-note { font-size: 12px; }
+
+/* Sections génériques : titre à gauche, contenu en dessous. */
+section.block { padding-block: clamp(56px, 8vw, 88px) 0; display: grid; gap: 28px; }
+.block-head { display: grid; gap: 10px; max-width: 62ch; }
+.block-head h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; line-height: 1.1; }
+.block-head p { color: var(--ink-soft); font-size: 17px; }
+
+/* Parcours d'une question : vraie séquence, donc numérotée. */
+.flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.flow li { background: var(--surface); padding: 22px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.flow .step { font-family: var(--font-data); font-size: 12px; color: var(--green); font-weight: 700; }
+.flow h3 { font-size: 17px; font-weight: 700; }
+.flow p { font-size: 14.5px; color: var(--muted); }
+.flow li.key { background: var(--tint); }
+
+/* Chiffres de validation : ici les nombres sont le message. */
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.stat { border-top: 3px solid var(--green); padding-top: 14px; display: grid; gap: 4px; }
+.stat strong { font-family: var(--font-data); font-size: clamp(30px, 4vw, 42px); font-weight: 700; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.stat span { font-size: 14px; color: var(--muted); }
+.fine { font-size: 13px; color: var(--muted); max-width: 70ch; }
+
+/* Garde-fous : liste en deux colonnes, sans cartes. */
+.guards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 48px; }
+.guard { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 4px 12px; }
+.guard .mark { grid-row: span 2; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--tint); color: var(--green); font-weight: 800; font-size: 14px; }
+.guard h3 { font-size: 16px; font-weight: 700; }
+.guard p { font-size: 14.5px; color: var(--muted); }
+
+/* Stack technique : pastilles regroupées par rôle. */
+.stack { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.stack div { display: grid; gap: 10px; align-content: start; }
+.stack h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); font-weight: 700; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-size: 13px; padding: 5px 10px; border-radius: 20px; border: 1px solid var(--line); background: var(--surface); }
+
+/* Frise des paliers du hackathon. */
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-left: 2px solid var(--tint-line); margin-left: 6px; }
+.timeline li { position: relative; padding: 0 0 22px 26px; display: grid; gap: 2px; }
+.timeline li::before { content: ""; position: absolute; left: -8px; top: 6px; width: 14px; height: 14px; border-radius: 50%; background: var(--surface); border: 3px solid var(--green); }
+.timeline .when { font-family: var(--font-data); font-size: 12px; color: var(--green); font-weight: 700; }
+.timeline h3 { font-size: 16px; font-weight: 700; }
+.timeline p { font-size: 14.5px; color: var(--muted); max-width: 68ch; }
+
+/* Bandeau final : équipe et lien vers le code. */
+.outro {
+  margin-top: clamp(56px, 8vw, 88px); border-radius: 15px; padding: clamp(24px, 4vw, 40px);
+  background: var(--hero-grad); border: 1px solid var(--tint-line);
+  display: flex; gap: 24px; align-items: center; justify-content: space-between; flex-wrap: wrap;
+}
+.outro h2 { font-size: clamp(24px, 3vw, 32px); font-weight: 800; }
+.outro p { color: var(--ink-soft); }
+.team { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+.team a { font-family: var(--font-data); font-size: 13px; padding: 4px 10px; border-radius: 6px; background: var(--surface); border: 1px solid var(--line); text-decoration: none; }
+footer { margin-top: 28px; font-size: 13px; color: var(--muted); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+/* Adaptation tablette puis téléphone : on empile les colonnes. */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: minmax(0, 1fr); }
+  .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stats, .stack { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .flow, .guards { grid-template-columns: minmax(0, 1fr); }
+  .twins { grid-template-columns: minmax(0, 1fr); }
+  .link { justify-self: center; transform: rotate(90deg); }
+  .top nav { margin-left: 0; }
+}
+/* Respect des préférences d'animation réduite. */
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="wrap">
+  <!-- En-tête du site -->
+  <header class="top">
+    <a class="brand" href="#top" id="top">Le <span>Sosie</span><span class="dot">.</span></a>
+    <nav aria-label="Sections">
+      <a href="#parcours">Parcours</a>
+      <a href="#garde-fous">Garde-fous</a>
+      <a href="#stack">Stack</a>
+      <a href="#paliers">Paliers</a>
+    </nav>
+  </header>
+
+  <!-- Hero : la promesse et la démonstration -->
+  <main>
+    <section class="hero" aria-labelledby="titre">
+      <div class="hero-copy">
+        <p class="eyebrow">Deux méthodes. Une vérification.</p>
+        <h1 id="titre">Le <span>Sosie</span><span class="dot">.</span></h1>
+        <p class="lead">Un assistant IA qui répond à vos questions sur vos dépenses, et qui refuse de donner un montant tant que deux calculs indépendants ne sont pas d'accord.</p>
+        <p class="voice"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" fill="none">
+<defs><linearGradient id="shell" x1="60" y1="45" x2="185" y2="210" gradientUnits="userSpaceOnUse"><stop stop-color="white"/><stop offset=".55" stop-color="#f6fbfa"/><stop offset="1" stop-color="#a6c8be"/></linearGradient><linearGradient id="screen" x1="75" y1="84" x2="160" y2="143" gradientUnits="userSpaceOnUse"><stop stop-color="#193e3a"/><stop offset="1" stop-color="#0b1a22"/></linearGradient><filter id="shadow"><feDropShadow dx="0" dy="7" stdDeviation="5" flood-color="#164d3d" flood-opacity=".15"/></filter></defs>
+<ellipse cx="125" cy="222" rx="66" ry="8" fill="#087653" opacity=".08"/>
+<g transform="rotate(-8 120 125)" filter="url(#shadow)"><path d="M125 53V31" stroke="#264d44" stroke-width="5"/><circle cx="125" cy="27" r="7" fill="#20bd88" stroke="#264d44" stroke-width="3"/><rect x="46" y="92" width="22" height="41" rx="11" fill="#b4d7ca" stroke="#27765c" stroke-width="3"/><rect x="180" y="92" width="22" height="41" rx="11" fill="#b4d7ca" stroke="#27765c" stroke-width="3"/><rect x="59" y="57" width="133" height="105" rx="44" fill="url(#shell)" stroke="#9ab9af" stroke-width="2"/><rect x="73" y="79" width="105" height="66" rx="25" fill="url(#screen)"/><path d="M91 110c0-12 15-12 15 0m34 0c0-12 15-12 15 0m-40 12q10 11 20 0" stroke="#66e0b0" stroke-width="4" stroke-linecap="round"/><path d="M114 163v11h24v-11" fill="#204c42"/><path d="M87 214v-20q0-24 36-24t37 24v20" fill="url(#shell)" stroke="#9ab9af" stroke-width="2"/><circle cx="125" cy="192" r="7" fill="#23b67f"/><path d="M82 180q-15 9-15 28m100-28q15 9 15 28" stroke="#bdd6ce" stroke-width="15" stroke-linecap="round"/><path d="M102 217v7m43-7v7" stroke="#204c42" stroke-width="12" stroke-linecap="round"/></g></svg><span>« Les mêmes chiffres ? Vérifions ensemble. »</span></p>
+        <div class="cta-row">
+          <a class="btn primary" href="https://github.com/John-Natty/Holberton-school-Hackathon-le-Sosie">Voir le code sur GitHub ↗</a>
+          <a class="btn ghost" href="#parcours">Comment ça marche</a>
+        </div>
+      </div>
+
+      <div class="demo" id="demo" data-state="match" aria-live="polite">
+        <div class="demo-head">
+          <span class="eyebrow">Exemple de démonstration</span>
+          <div class="switch" role="group" aria-label="Scénario">
+            <button type="button" id="btn-match" aria-pressed="true">Concordance</button>
+            <button type="button" id="btn-diverge" aria-pressed="false">Divergence</button>
+          </div>
+        </div>
+        <p class="ask">Combien ai-je dépensé en alimentation ?</p>
+        <div class="twins">
+          <div class="calc py">
+            <span class="label"><span class="tag">Py</span>Python</span>
+            <strong class="amount num" id="amt-py">72,50 €</strong>
+            <span class="ids num">dépenses #1 · #2 · #3</span>
+          </div>
+          <span class="link" aria-hidden="true">⇄</span>
+          <div class="calc sql">
+            <span class="label"><span class="tag">DB</span>SQL</span>
+            <strong class="amount num" id="amt-sql">72,50 €</strong>
+            <span class="ids num" id="ids-sql">dépenses #1 · #2 · #3</span>
+          </div>
+        </div>
+        <p class="verdict" id="verdict"><span aria-hidden="true">✓</span><span id="verdict-text">Concordance : montants et dépenses identiques. Réponse validée.</span></p>
+        <p class="demo-note muted">CSV de démo : Carrefour 42,50 · Boulangerie 12,00 · Restaurant 18,00.</p>
+      </div>
+    </section>
+
+    <!-- Parcours d'une question, étape par étape -->
+    <section class="block" id="parcours" aria-labelledby="t-parcours">
+      <div class="block-head">
+        <p class="eyebrow">Parcours d'une question</p>
+        <h2 id="t-parcours">Claude formule la question. Python et SQL font le calcul.</h2>
+        <p>Un modèle de langage comprend bien une phrase, mais il ne doit pas inventer un total. Le Sosie sépare les rôles : l'IA traduit la demande en requête structurée, puis deux calculateurs vérifient chacun de leur côté.</p>
+      </div>
+      <ol class="flow">
+        <li><span class="step">01</span><h3>Question en français</h3><p>Validation de l'entrée, puis contrôle de l'état de l'agent (STOP ou START).</p></li>
+        <li><span class="step">02</span><h3>Contrôles locaux</h3><p>Langue (Unicode puis langdetect) et modération par règles Python. Un refus ici coûte zéro appel et zéro token.</p></li>
+        <li><span class="step">03</span><h3>Requête structurée</h3><p>Claude appelle l'outil <code class="num">verify_expenses</code>. Le serveur valide les arguments contre un contrat strict.</p></li>
+        <li class="key"><span class="step">04</span><h3>Deux calculs indépendants</h3><p>Python et SQL interrogent la même base SQLite, chacun avec sa propre logique.</p></li>
+        <li class="key"><span class="step">05</span><h3>Comparaison stricte</h3><p>Le serveur compare les montants et les identifiants des dépenses utilisées. Le moindre écart bloque la réponse.</p></li>
+        <li><span class="step">06</span><h3>Réponse avec preuves</h3><p>Montant vérifié, dépenses utilisées, durées, appels, tokens et coût de la requête.</p></li>
+      </ol>
+    </section>
+
+    <!-- Chiffres de validation du projet -->
+    <section class="block" aria-labelledby="t-tests">
+      <div class="block-head">
+        <p class="eyebrow">Qualité</p>
+        <h2 id="t-tests">Testé de la question jusqu'à l'écran.</h2>
+      </div>
+      <div class="stats">
+        <div class="stat"><strong>363</strong><span>tests Python</span></div>
+        <div class="stat"><strong>34</strong><span>tests frontend</span></div>
+        <div class="stat"><strong>7</strong><span>tests navigateur Playwright</span></div>
+        <div class="stat"><strong>17/17</strong><span>scénarios de l'évaluateur automatisé</span></div>
+      </div>
+      <p class="fine">Le parcours navigateur couvre Chromium, Flask, le SDK Anthropic, SQLite, les deux calculateurs et le rendu JavaScript. L'évaluateur rejoue import, injections hostiles, divergence provoquée, langues étrangères, STOP / START et entrées invalides.</p>
+    </section>
+
+    <!-- Garde-fous : ce que l'application refuse de faire -->
+    <section class="block" id="garde-fous" aria-labelledby="t-garde">
+      <div class="block-head">
+        <p class="eyebrow">Garde-fous</p>
+        <h2 id="t-garde">Ce que Le Sosie refuse de faire.</h2>
+      </div>
+      <div class="guards">
+        <div class="guard"><span class="mark" aria-hidden="true">≠</span><h3>Trancher un désaccord</h3><p>Si Python et SQL divergent, ou si un calculateur échoue, aucune réponse n'est validée. Pas d'arbitrage inventé.</p></div>
+        <div class="guard"><span class="mark" aria-hidden="true">?</span><h3>Deviner une période</h3><p>« Combien ai-je dépensé récemment ? » déclenche une demande de précision, sans calcul.</p></div>
+        <div class="guard"><span class="mark" aria-hidden="true">⇧</span><h3>Importer à moitié</h3><p>Une seule ligne invalide dans le CSV fait refuser tout le fichier. L'insertion est atomique.</p></div>
+        <div class="guard"><span class="mark" aria-hidden="true">■</span><h3>Continuer après un STOP</h3><p>Un STOP invalide l'exécution en cours, et un START ne la réactive pas. Chaque action est horodatée dans un journal.</p></div>
+      </div>
+    </section>
+
+    <!-- Stack technique -->
+    <section class="block" id="stack" aria-labelledby="t-stack">
+      <div class="block-head">
+        <p class="eyebrow">Stack</p>
+        <h2 id="t-stack">Léger, testable, déployable.</h2>
+      </div>
+      <div class="stack">
+        <div><h3>Backend</h3><div class="chips"><span class="chip">Python 3.12</span><span class="chip">Flask</span><span class="chip">SQLite</span><span class="chip">Gunicorn</span></div></div>
+        <div><h3>IA</h3><div class="chips"><span class="chip">Claude</span><span class="chip">SDK Anthropic</span><span class="chip">Sorties structurées</span><span class="chip">langdetect</span></div></div>
+        <div><h3>Frontend</h3><div class="chips"><span class="chip">HTML / CSS</span><span class="chip">JavaScript</span><span class="chip">SSE en direct</span></div></div>
+        <div><h3>Livraison</h3><div class="chips"><span class="chip">Docker Compose</span><span class="chip">Render</span><span class="chip">pytest</span><span class="chip">Playwright</span></div></div>
+      </div>
+    </section>
+
+    <!-- Frise des paliers du hackathon -->
+    <section class="block" id="paliers" aria-labelledby="t-paliers">
+      <div class="block-head">
+        <p class="eyebrow">Hackathon Holberton · 7 au 10 septembre 2026</p>
+        <h2 id="t-paliers">Cinq paliers en quatre jours.</h2>
+      </div>
+      <ol class="timeline">
+        <li><span class="when">Palier 1</span><h3>Cadrage</h3><p>Spécification, analyse des menaces, contrats des outils. Principe retenu : deux calculateurs indépendants.</p></li>
+        <li><span class="when">Palier 2</span><h3>Socle</h3><p>Flask, SQLite, import CSV validé, première interface, Docker et mise en ligne sur Render.</p></li>
+        <li><span class="when">Palier 3</span><h3>Boucle de l'agent</h3><p>Claude appelle réellement l'outil de vérification, trace des appels, mode HTTP et flux en direct.</p></li>
+        <li><span class="when">Palier 4</span><h3>Contrôle</h3><p>STOP / START depuis l'interface, journal d'exécution et évaluateur automatisé.</p></li>
+        <li><span class="when">Palier 5</span><h3>Durcissement</h3><p>Contrôles de langue et de modération locaux, panneau « Infos requête » avec durée, tokens et coût réels.</p></li>
+      </ol>
+    </section>
+  </main>
+
+  <!-- Bandeau final : équipe et lien vers le dépôt -->
+  <section class="outro" aria-labelledby="t-equipe">
+    <div>
+      <h2 id="t-equipe">Un projet en binôme.</h2>
+      <p>Conçu et développé à Holberton School.</p>
+      <div class="team">
+        <a href="https://github.com/John-Natty">@John-Natty</a>
+        <a href="https://github.com/nohamoulma-hub">@nohamoulma-hub</a>
+      </div>
+    </div>
+    <a class="btn primary" href="https://github.com/John-Natty/Holberton-school-Hackathon-le-Sosie">Explorer le dépôt ↗</a>
+  </section>
+  <footer><span>Le Sosie · Hackathon Holberton School 2026</span><span>Aucun montant n'est fiable sans double validation.</span></footer>
+</div>
+
+<script>
+// Démo : bascule entre le scénario "concordance" et "divergence".
+(function () {
+  const demo = document.getElementById('demo');
+  const bMatch = document.getElementById('btn-match');
+  const bDiv = document.getElementById('btn-diverge');
+  const sql = document.getElementById('amt-sql');
+  const ids = document.getElementById('ids-sql');
+  const vText = document.getElementById('verdict-text');
+  const vIcon = document.querySelector('#verdict span');
+  const py = document.getElementById('amt-py');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Formate un nombre en euros, à la française.
+  const eur = n => n.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+
+  // Fait défiler un montant de 0 jusqu'à sa valeur, comme un compteur.
+  function count(el, target, ms) {
+    if (reduce) { el.textContent = eur(target); return; }
+    const t0 = performance.now();
+    function tick(t) {
+      const p = Math.min(1, (t - t0) / ms);
+      el.textContent = eur(target * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // Applique un scénario : met à jour SQL, le verdict et les boutons.
+  function set(state) {
+    const div = state === 'diverge';
+    demo.dataset.state = state;
+    bMatch.setAttribute('aria-pressed', String(!div));
+    bDiv.setAttribute('aria-pressed', String(div));
+    ids.textContent = div ? 'dépenses #1 · #2' : 'dépenses #1 · #2 · #3';
+    vIcon.textContent = div ? '✕' : '✓';
+    vText.textContent = div
+      ? 'Divergence : SQL a omis la dépense #3. Aucune réponse validée.'
+      : 'Concordance : montants et dépenses identiques. Réponse validée.';
+    count(py, 72.5, 700);
+    count(sql, div ? 54.5 : 72.5, 820);
+  }
+
+  bMatch.addEventListener('click', () => set('match'));
+  bDiv.addEventListener('click', () => set('diverge'));
+  // Petite animation d'entrée : les deux compteurs démarrent ensemble.
+  count(py, 72.5, 900);
+  count(sql, 72.5, 1050);
+})();
+</script>
+
+</body></html>

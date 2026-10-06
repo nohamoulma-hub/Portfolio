@@ -1,0 +1,666 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body><!-- Lien de retour vers le portfolio --><a href="../index.html" style="position:fixed;left:16px;bottom:16px;z-index:9999;padding:10px 16px;border-radius:999px;background:#0a0a0a;color:#fafafa;font:600 14px/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.25)">← Retour au portfolio</a>
+<title>LE BRAS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Mise en page : une colonne centrée, fond quadrillé comme l'app, une démo interactive dans le hero */
+/* Tokens repris tels quels de frontend/style.css (charte du projet) */
+:root {
+    --background: #f5f6ff;
+    --background-deep: #e8ebff;
+    --surface: rgba(255, 255, 255, 0.82);
+    --surface-solid: #ffffff;
+    --surface-muted: rgba(240, 241, 255, 0.78);
+    --text: #071856;
+    --text-secondary: #64709a;
+    --text-soft: #7e86a6;
+    --accent: #5b50f6;
+    --accent-strong: #4238e9;
+    --accent-soft: rgba(91, 80, 246, 0.1);
+    --accent-glow: rgba(91, 80, 246, 0.24);
+    --border: rgba(91, 80, 246, 0.42);
+    --border-soft: rgba(26, 43, 111, 0.1);
+    --grid-line: rgba(94, 87, 220, 0.05);
+    --success: #1d8f6e;
+    --success-soft: rgba(29, 143, 110, 0.1);
+    --warning: #a96d12;
+    --warning-soft: rgba(202, 137, 34, 0.12);
+    --danger: #c33d58;
+    --danger-soft: rgba(195, 61, 88, 0.1);
+    --on-accent: #ffffff;
+    --shadow: 0 24px 70px rgba(58, 67, 145, 0.12);
+    --shadow-soft: 0 12px 32px rgba(58, 67, 145, 0.09);
+    --focus: 0 0 0 4px rgba(91, 80, 246, 0.2);
+    --font-sans: "Inter", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+/* Thème sombre : mêmes noms de tokens, valeurs du thème sombre de l'app */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --background: #050a18;
+        --background-deep: #090f25;
+        --surface: rgba(10, 17, 40, 0.82);
+        --surface-solid: #0c132b;
+        --surface-muted: rgba(17, 24, 54, 0.86);
+        --text: #f5f6ff;
+        --text-secondary: #a7a9d7;
+        --text-soft: #8489ae;
+        --accent: #7768ff;
+        --accent-strong: #9187ff;
+        --accent-soft: rgba(119, 104, 255, 0.14);
+        --accent-glow: rgba(95, 78, 255, 0.42);
+        --border: rgba(112, 91, 255, 0.78);
+        --border-soft: rgba(159, 164, 222, 0.13);
+        --grid-line: rgba(140, 132, 255, 0.06);
+        --success: #54d2ad;
+        --success-soft: rgba(84, 210, 173, 0.1);
+        --warning: #f0bb62;
+        --warning-soft: rgba(240, 187, 98, 0.11);
+        --danger: #ff8098;
+        --danger-soft: rgba(255, 128, 152, 0.1);
+        --shadow: 0 26px 80px rgba(0, 0, 0, 0.34);
+        --shadow-soft: 0 14px 34px rgba(0, 0, 0, 0.24);
+        --focus: 0 0 0 4px rgba(119, 104, 255, 0.26);
+    }
+}
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    --background: #050a18;
+    --background-deep: #090f25;
+    --surface: rgba(10, 17, 40, 0.82);
+    --surface-solid: #0c132b;
+    --surface-muted: rgba(17, 24, 54, 0.86);
+    --text: #f5f6ff;
+    --text-secondary: #a7a9d7;
+    --text-soft: #8489ae;
+    --accent: #7768ff;
+    --accent-strong: #9187ff;
+    --accent-soft: rgba(119, 104, 255, 0.14);
+    --accent-glow: rgba(95, 78, 255, 0.42);
+    --border: rgba(112, 91, 255, 0.78);
+    --border-soft: rgba(159, 164, 222, 0.13);
+    --grid-line: rgba(140, 132, 255, 0.06);
+    --success: #54d2ad;
+    --success-soft: rgba(84, 210, 173, 0.1);
+    --warning: #f0bb62;
+    --warning-soft: rgba(240, 187, 98, 0.11);
+    --danger: #ff8098;
+    --danger-soft: rgba(255, 128, 152, 0.1);
+    --shadow: 0 26px 80px rgba(0, 0, 0, 0.34);
+    --shadow-soft: 0 14px 34px rgba(0, 0, 0, 0.24);
+    --focus: 0 0 0 4px rgba(119, 104, 255, 0.26);
+}
+
+/* Base : police, fond et couleur de texte pour toute la page */
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--background);
+    -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: none; box-shadow: var(--focus); border-radius: 10px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+p { margin: 0; }
+code, .mono { font-family: var(--font-mono); font-size: 0.88em; }
+
+/* Conteneur : largeur max et marge latérale de 16px minimum */
+.wrap {
+    width: 100%;
+    max-width: 1120px;
+    margin-inline: auto;
+    padding-inline: clamp(16px, 4vw, 40px);
+}
+
+/* Fond quadrillé + halos violets, comme l'écran d'accueil de l'app */
+.backdrop {
+    position: relative;
+    background:
+        radial-gradient(circle at 18% 12%, var(--accent-glow), transparent 42%),
+        radial-gradient(circle at 88% 30%, var(--accent-soft), transparent 46%),
+        linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0 / 34px 34px,
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0 / 34px 34px,
+        var(--background);
+}
+
+/* Barre du haut : logo + navigation */
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-block: 22px;
+    flex-wrap: wrap;
+}
+.logo { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: 0.06em; text-decoration: none; color: var(--text); }
+.logo-mark {
+    display: grid; place-items: center;
+    width: 38px; height: 38px; border-radius: 12px;
+    background: linear-gradient(145deg, #756aff, var(--accent-strong));
+    color: var(--on-accent);
+    box-shadow: 0 10px 24px var(--accent-glow);
+}
+.nav { display: flex; gap: 6px; flex-wrap: wrap; }
+.nav a {
+    color: var(--text-secondary); text-decoration: none; font-size: 0.92rem; font-weight: 500;
+    padding: 6px 12px; border-radius: 999px;
+}
+.nav a:hover { background: var(--accent-soft); color: var(--accent-strong); }
+
+/* Hero : titre à gauche, démo à droite (empilés sur mobile) */
+.hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: clamp(28px, 5vw, 64px);
+    align-items: center;
+    padding-block: clamp(32px, 6vw, 72px) clamp(56px, 8vw, 96px);
+}
+.eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--accent-strong);
+    background: var(--accent-soft);
+    border: 1px solid var(--border-soft);
+    padding: 6px 12px; border-radius: 999px;
+}
+.hero h1 {
+    margin-top: 22px;
+    font-size: clamp(3.4rem, 9vw, 6.4rem);
+    font-weight: 800;
+    letter-spacing: 0.035em;
+    line-height: 0.95;
+    text-shadow: 0 10px 32px rgba(25, 38, 104, 0.08);
+}
+.hero .lede {
+    margin-top: 22px;
+    max-width: 30ch;
+    font-size: clamp(1.15rem, 2vw, 1.45rem);
+    color: var(--text-secondary);
+    line-height: 1.45;
+}
+.motto {
+    margin-top: 28px;
+    padding-left: 16px;
+    border-left: 2px solid var(--accent);
+    color: var(--text);
+    font-weight: 500;
+    max-width: 44ch;
+}
+.hero-meta { margin-top: 28px; display: flex; gap: 10px; flex-wrap: wrap; }
+.chip {
+    font-size: 0.82rem; font-weight: 500; color: var(--text-secondary);
+    background: var(--surface); border: 1px solid var(--border-soft);
+    padding: 5px 11px; border-radius: 999px;
+}
+
+/* Démo : maquette de l'interface (demande + actions en attente) */
+.demo {
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 28px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(18px);
+    padding: clamp(16px, 2.4vw, 24px);
+    display: grid;
+    gap: 14px;
+    min-width: 0;
+}
+.demo-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.demo-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); }
+.reset {
+    border: 1px solid var(--border-soft); background: transparent; cursor: pointer;
+    font-size: 0.8rem; padding: 4px 10px; border-radius: 999px; color: var(--text-secondary);
+}
+.reset:hover { color: var(--accent-strong); border-color: var(--border); }
+.prompt {
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    padding: 14px 16px;
+    background: var(--surface-solid);
+    box-shadow: 0 0 0 6px var(--accent-soft);
+    font-weight: 500;
+}
+.agent-reply { font-size: 0.92rem; color: var(--text-secondary); }
+.agent-reply strong { color: var(--text); font-weight: 600; }
+
+/* Carte d'action : un Tool proposé, son statut et les boutons de décision */
+.action {
+    border: 1px solid var(--border-soft);
+    border-radius: 17px;
+    background: var(--surface-solid);
+    padding: 14px;
+    display: grid;
+    gap: 10px;
+    min-width: 0;
+    transition: border-color 200ms ease;
+}
+.action[data-state="executed"] { border-color: var(--success); }
+.action[data-state="rejected"] { opacity: 0.62; }
+.action-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.tool-name { font-family: var(--font-mono); font-size: 0.82rem; color: var(--accent-strong); font-weight: 500; }
+.action-title { font-weight: 600; font-size: 0.98rem; }
+.args { font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-soft); overflow-wrap: anywhere; }
+.default { color: var(--warning); }
+.action-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn {
+    border: 1px solid var(--border-soft); border-radius: 12px; cursor: pointer;
+    padding: 7px 14px; font-size: 0.86rem; font-weight: 600; background: transparent;
+    transition: transform 120ms ease, background 160ms ease;
+}
+.btn:active { transform: scale(0.97); }
+.btn-approve { background: linear-gradient(145deg, #756aff, var(--accent-strong)); color: var(--on-accent); border-color: transparent; }
+.btn-reject:hover { background: var(--danger-soft); color: var(--danger); }
+.btn[disabled] { cursor: default; opacity: 0.4; }
+
+/* Pastilles de statut : une couleur par état du cycle de vie */
+.status {
+    font-family: var(--font-mono); font-size: 0.74rem; font-weight: 500;
+    padding: 3px 9px; border-radius: 999px; white-space: nowrap;
+}
+.s-pending { color: var(--warning); background: var(--warning-soft); }
+.s-executing { color: var(--accent-strong); background: var(--accent-soft); }
+.s-executed { color: var(--success); background: var(--success-soft); }
+.s-rejected, .s-error { color: var(--danger); background: var(--danger-soft); }
+.demo-note { font-size: 0.78rem; color: var(--text-soft); }
+
+/* Sections génériques : espacement vertical et en-têtes */
+section.block { padding-block: clamp(56px, 8vw, 96px); border-top: 1px solid var(--border-soft); }
+.section-head { display: grid; gap: 12px; max-width: 62ch; margin-bottom: clamp(28px, 4vw, 44px); }
+.kicker { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.section-head h2 { font-size: clamp(1.8rem, 3.6vw, 2.6rem); font-weight: 700; letter-spacing: -0.01em; line-height: 1.12; }
+.section-head p { color: var(--text-secondary); font-size: 1.05rem; }
+
+/* Pipeline : les 6 étapes réelles du flux, de la demande à l'audit */
+.pipeline {
+    list-style: none; margin: 0; padding: 0;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 10px;
+    counter-reset: step;
+}
+.pipeline li {
+    counter-increment: step;
+    position: relative;
+    padding: 16px 14px;
+    border-radius: 17px;
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    display: grid; gap: 6px; align-content: start;
+    min-width: 0;
+}
+.pipeline li::before {
+    content: counter(step);
+    font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-soft);
+}
+.pipeline li.human { border-color: var(--border); background: var(--accent-soft); }
+.pipeline strong { font-size: 0.98rem; }
+.pipeline span { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.45; }
+
+/* Cycle de vie : schéma des transitions d'état d'une action */
+.lifecycle {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(24px, 4vw, 56px);
+    align-items: center;
+}
+.lc-diagram {
+    background: var(--surface); border: 1px solid var(--border-soft); border-radius: 28px;
+    padding: 24px; overflow-x: auto;
+}
+.lc-diagram svg { display: block; width: 100%; min-width: 420px; height: auto; }
+.lc-text { display: grid; gap: 16px; color: var(--text-secondary); max-width: 52ch; min-width: 0; }
+.lc-text p strong { color: var(--text); }
+
+/* Liste des 7 Tools : une ligne par Tool, colonnes alignées */
+.tools { border: 1px solid var(--border-soft); border-radius: 22px; overflow: hidden; background: var(--surface); }
+.tool-row {
+    display: grid;
+    grid-template-columns: minmax(170px, 0.9fr) 120px minmax(0, 2fr);
+    gap: 16px; align-items: center;
+    padding: 16px 20px;
+    border-top: 1px solid var(--border-soft);
+}
+.tool-row:first-child { border-top: 0; }
+.tool-row code { color: var(--text); font-weight: 500; }
+.tool-row p { color: var(--text-secondary); font-size: 0.94rem; }
+.type { font-family: var(--font-mono); font-size: 0.72rem; padding: 3px 8px; border-radius: 8px; justify-self: start; }
+.t-side { color: var(--accent-strong); background: var(--accent-soft); }
+.t-read { color: var(--success); background: var(--success-soft); }
+
+/* Chiffres clés : garde-fous et qualité, chiffres alignés */
+.figures { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.figure { padding: 20px; border-radius: 20px; background: var(--surface); border: 1px solid var(--border-soft); display: grid; gap: 4px; }
+.figure b { font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.02em; color: var(--accent-strong); font-variant-numeric: tabular-nums; line-height: 1.1; }
+.figure span { font-size: 0.9rem; color: var(--text-secondary); }
+.figure code { color: var(--text-soft); font-size: 0.74rem; }
+.guards { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* Charte graphique : nuancier et typographie du projet */
+.identity { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 20px; }
+.swatches { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.swatch { border-radius: 17px; overflow: hidden; border: 1px solid var(--border-soft); background: var(--surface-solid); }
+.swatch i { display: block; height: 72px; }
+.swatch div { padding: 10px 12px; display: grid; }
+.swatch b { font-size: 0.86rem; font-weight: 600; }
+.swatch span { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-soft); }
+.type-card { border-radius: 22px; background: var(--surface); border: 1px solid var(--border-soft); padding: 24px; display: grid; gap: 14px; align-content: start; min-width: 0; }
+.type-card .big { font-size: 3.6rem; font-weight: 800; letter-spacing: 0.035em; line-height: 1; }
+.type-card p { color: var(--text-secondary); font-size: 0.92rem; }
+.weights { display: flex; gap: 14px; flex-wrap: wrap; font-size: 1.1rem; }
+
+/* Stack technique + auteurs dans le pied de page */
+.stack { display: flex; flex-wrap: wrap; gap: 8px; }
+.stack .chip { font-size: 0.9rem; color: var(--text); }
+footer { padding-block: 48px; border-top: 1px solid var(--border-soft); }
+.foot { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; align-items: end; }
+.authors { display: flex; gap: 28px; flex-wrap: wrap; }
+.author { display: grid; }
+.author b { font-weight: 600; }
+.author a { font-family: var(--font-mono); font-size: 0.84rem; text-decoration: none; }
+.author a:hover { text-decoration: underline; }
+.foot small { color: var(--text-soft); }
+
+/* Responsive : on empile les grilles sur tablette puis mobile */
+@media (max-width: 920px) {
+    .hero, .lifecycle, .identity { grid-template-columns: minmax(0, 1fr); }
+    .pipeline { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .figures { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+    .pipeline { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .tool-row { grid-template-columns: minmax(0, 1fr) auto; gap: 6px 12px; }
+    .tool-row p { grid-column: 1 / -1; }
+    .swatches { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .nav { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+}
+</style>
+
+<!-- Fond quadrillé partagé par la barre du haut et le hero -->
+<div class="backdrop">
+    <div class="wrap">
+        <header class="topbar">
+            <a class="logo" href="#top" id="top">
+                <span class="logo-mark" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18h6l3-6 4 2 3-5"/><circle cx="20" cy="9" r="1.6" fill="currentColor"/></svg>
+                </span>
+                LE BRAS
+            </a>
+            <nav class="nav" aria-label="Sections">
+                <a href="#principe">Principe</a>
+                <a href="#cycle">Cycle de vie</a>
+                <a href="#tools">Tools</a>
+                <a href="#charte">Charte</a>
+            </nav>
+        </header>
+
+        <!-- Hero : promesse du projet + démo cliquable -->
+        <div class="hero">
+            <div>
+                <span class="eyebrow">Hackathon Holberton School</span>
+                <h1>LE BRAS</h1>
+                <p class="lede">Un agent opérationnel qui transforme une intention en actions, tout en laissant le contrôle final à l'humain.</p>
+                <p class="motto">L'agent propose, l'utilisateur autorise, le backend contrôle et les Tools exécutent.</p>
+                <div class="hero-meta">
+                    <span class="chip">Claude Sonnet 5</span>
+                    <span class="chip">Tool Calling natif</span>
+                    <span class="chip">Human-in-the-loop</span>
+                </div>
+            </div>
+
+            <div class="demo" aria-label="Démonstration interactive">
+                <div class="demo-head">
+                    <span class="demo-label">Démo · plan en attente de validation</span>
+                    <button class="reset" id="reset" type="button">Réinitialiser</button>
+                </div>
+                <div class="prompt">Prépare l'arrivée de Léa lundi prochain.</div>
+                <p class="agent-reply">Demande large : je propose <strong>3 actions</strong>. Les champs en orange sont des <strong>valeurs par défaut à vérifier</strong>. Rien n'est exécuté sans ton accord.</p>
+                <div id="actions"></div>
+                <p class="demo-note">Exemple illustratif, aucune action réelle n'est déclenchée.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<main>
+    <!-- Principe : le flux complet en 6 étapes -->
+    <section class="block" id="principe">
+        <div class="wrap">
+            <div class="section-head">
+                <span class="kicker">Le principe</span>
+                <h2>De l'intention à l'audit, avec un humain au milieu</h2>
+                <p>Claude choisit lui-même les Tools à partir de leur description. Aucun routage par mots-clés. Mais aucun effet de bord ne part sans une validation explicite.</p>
+            </div>
+            <ol class="pipeline">
+                <li><strong>Demande</strong><span>Une intention en langage naturel.</span></li>
+                <li><strong>Agent</strong><span>Claude sélectionne les Tools adaptés.</span></li>
+                <li><strong>Propositions</strong><span>Chaque effet de bord devient une action <code>pending</code>.</span></li>
+                <li class="human"><strong>Validation humaine</strong><span>Approuver ou refuser, action par action.</span></li>
+                <li><strong>Exécution</strong><span>Le backend vérifie l'accès puis lance le Tool.</span></li>
+                <li><strong>Audit</strong><span>Trace, résultats, erreurs, tokens, latence, coût.</span></li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- Cycle de vie : machine à états d'une action -->
+    <section class="block" id="cycle">
+        <div class="wrap lifecycle">
+            <div class="lc-diagram">
+                <svg viewBox="0 0 460 220" role="img" aria-label="pending vers executing vers executed ou error, ou pending vers rejected">
+                    <defs>
+                        <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                            <path d="M0 0L10 5L0 10z" style="fill: var(--text-soft)"/>
+                        </marker>
+                    </defs>
+                    <g style="stroke: var(--text-soft)" stroke-width="1.5" fill="none" marker-end="url(#arr)">
+                        <path d="M118 60H168"/>
+                        <path d="M290 50L336 30"/>
+                        <path d="M290 70L336 92"/>
+                        <path d="M70 80V150"/>
+                    </g>
+                    <text x="128" y="50" font-size="11" style="fill: var(--text-soft)" font-family="Inter, sans-serif">approuve</text>
+                    <text x="80" y="122" font-size="11" style="fill: var(--text-soft)" font-family="Inter, sans-serif">refuse</text>
+                    <g font-family="JetBrains Mono, monospace" font-size="13" text-anchor="middle">
+                        <rect x="20" y="42" width="100" height="36" rx="18" style="fill: var(--warning-soft); stroke: var(--warning)"/>
+                        <text x="70" y="65" style="fill: var(--warning)">pending</text>
+                        <rect x="172" y="42" width="116" height="36" rx="18" style="fill: var(--accent-soft); stroke: var(--accent)"/>
+                        <text x="230" y="65" style="fill: var(--accent-strong)">executing</text>
+                        <rect x="340" y="8" width="108" height="36" rx="18" style="fill: var(--success-soft); stroke: var(--success)"/>
+                        <text x="394" y="31" style="fill: var(--success)">executed</text>
+                        <rect x="340" y="80" width="108" height="36" rx="18" style="fill: var(--danger-soft); stroke: var(--danger)"/>
+                        <text x="394" y="103" style="fill: var(--danger)">error</text>
+                        <rect x="20" y="154" width="100" height="36" rx="18" style="fill: var(--danger-soft); stroke: var(--danger)"/>
+                        <text x="70" y="177" style="fill: var(--danger)">rejected</text>
+                    </g>
+                    <text x="134" y="178" font-size="11" style="fill: var(--text-soft)" font-family="Inter, sans-serif">le Tool n'est jamais appelé</text>
+                </svg>
+            </div>
+            <div class="lc-text">
+                <div class="section-head" style="margin-bottom:0">
+                    <span class="kicker">Cycle de vie d'une action</span>
+                    <h2>Une action en attente n'est jamais présentée comme faite</h2>
+                </div>
+                <p>Après approbation, le backend passe l'action de <code>pending</code> à <code>executing</code> de façon <strong>atomique</strong> : deux clics simultanés ne peuvent pas lancer deux fois le même Tool.</p>
+                <p>Si le Tool échoue, l'erreur est remontée telle quelle. <strong>Pas de faux succès</strong>, pas de résultat inventé.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools : les 7 outils exposés à Claude -->
+    <section class="block" id="tools">
+        <div class="wrap">
+            <div class="section-head">
+                <span class="kicker">7 Tools</span>
+                <h2>Un périmètre court et explicite</h2>
+                <p>Les Tools actifs pour l'appel courant sont le périmètre réel de l'agent. Un Tool désactivé n'est jamais remplacé par un autre pour contourner son absence.</p>
+            </div>
+            <div class="tools">
+                <div class="tool-row"><code>create_issue</code><span class="type t-side">SIDE_EFFECT</span><p>Crée une tâche dans l'issue tracker simulé (PostgreSQL).</p></div>
+                <div class="tool-row"><code>send_message</code><span class="type t-side">SIDE_EFFECT</span><p>Simule un message Markdown dans <code>outbox/{channel}</code>.</p></div>
+                <div class="tool-row"><code>write_record</code><span class="type t-side">SIDE_EFFECT</span><p>Enregistre une fiche métier structurée.</p></div>
+                <div class="tool-row"><code>generate_document</code><span class="type t-side">SIDE_EFFECT</span><p>Génère un document Markdown dans <code>files/</code>.</p></div>
+                <div class="tool-row"><code>create_calendar_event</code><span class="type t-side">SIDE_EFFECT</span><p>Pose un événement dans le calendrier interactif.</p></div>
+                <div class="tool-row"><code>list_pending_actions</code><span class="type t-read">READ_ONLY</span><p>Liste jusqu'à 50 actions en attente d'un plan, exécuté immédiatement.</p></div>
+                <div class="tool-row"><code>undo_last_action</code><span class="type t-side">SIDE_EFFECT</span><p>Annule une action déjà exécutée et réversible.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Garde-fous : chiffres clés tirés du code et des tests -->
+    <section class="block" id="garde-fous">
+        <div class="wrap">
+            <div class="section-head">
+                <span class="kicker">Garde-fous et qualité</span>
+                <h2>Des limites écrites dans le code</h2>
+            </div>
+            <div class="figures">
+                <div class="figure"><b>4</b><span>itérations d'outils maximum avant arrêt de sécurité</span><code>MAX_TOOL_ITERATIONS</code></div>
+                <div class="figure"><b>6000</b><span>caractères maximum par résultat de Tool</span><code>MAX_TOOL_RESULT_CHARS</code></div>
+                <div class="figure"><b>65</b><span>tests automatisés</span><code>tests/</code></div>
+                <div class="figure"><b>9</b><span>scénarios d'évaluation de l'agent</span><code>eval/cases.md</code></div>
+            </div>
+            <div class="guards">
+                <span class="chip">Validation JSON Schema</span>
+                <span class="chip">additionalProperties: false</span>
+                <span class="chip">Idempotence plan_id + action_index</span>
+                <span class="chip">Contrôle d'accès par compte</span>
+                <span class="chip">Tools désactivables sans redémarrage</span>
+                <span class="chip">Secrets côté serveur uniquement</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Charte graphique : couleurs et typographie de l'interface -->
+    <section class="block" id="charte">
+        <div class="wrap">
+            <div class="section-head">
+                <span class="kicker">Identité visuelle</span>
+                <h2>Un indigo calme, pensé pour un outil de travail</h2>
+                <p>Un violet électrique pour l'action, un bleu nuit pour la lecture, et des statuts colorés pour repérer d'un coup d'œil ce qui attend une décision. Clair et sombre partagent les mêmes tokens.</p>
+            </div>
+            <div class="identity">
+                <div class="swatches">
+                    <div class="swatch"><i style="background:#5b50f6"></i><div><b>Accent</b><span>#5b50f6</span></div></div>
+                    <div class="swatch"><i style="background:#071856"></i><div><b>Texte</b><span>#071856</span></div></div>
+                    <div class="swatch"><i style="background:#f5f6ff"></i><div><b>Fond clair</b><span>#f5f6ff</span></div></div>
+                    <div class="swatch"><i style="background:#050a18"></i><div><b>Fond sombre</b><span>#050a18</span></div></div>
+                    <div class="swatch"><i style="background:#1d8f6e"></i><div><b>Exécuté</b><span>#1d8f6e</span></div></div>
+                    <div class="swatch"><i style="background:#a96d12"></i><div><b>En attente</b><span>#a96d12</span></div></div>
+                </div>
+                <div class="type-card">
+                    <span class="demo-label">Typographie</span>
+                    <div class="big">Aa</div>
+                    <div><b>Inter</b><p>Interface, titres et texte courant. Titre de marque en 780, capitales espacées de 0,035em.</p></div>
+                    <div class="weights"><span style="font-weight:400">Regular</span><span style="font-weight:600">Semibold</span><span style="font-weight:800">Extrabold</span></div>
+                    <p><span class="mono">Monospace</span> pour les noms de Tools, statuts et identifiants.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stack technique -->
+    <section class="block" id="stack">
+        <div class="wrap">
+            <div class="section-head">
+                <span class="kicker">Stack</span>
+                <h2>Simple à lancer, deux conteneurs</h2>
+            </div>
+            <div class="stack">
+                <span class="chip">Anthropic API · claude-sonnet-5</span>
+                <span class="chip">Python · FastAPI</span>
+                <span class="chip">PostgreSQL</span>
+                <span class="chip">Docker Compose</span>
+                <span class="chip">HTML / CSS / JavaScript</span>
+                <span class="chip">Fuseau Europe/Paris</span>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Pied de page : auteurs et liens GitHub -->
+<footer>
+    <div class="wrap foot">
+        <div class="authors">
+            <div class="author"><b>Johnattan Natty</b><a href="https://github.com/John-Natty">@John-Natty</a></div>
+            <div class="author"><b>Noham Oulma</b><a href="https://github.com/nohamoulma-hub">@nohamoulma-hub</a></div>
+        </div>
+        <small>LE BRAS · Hackathon Holberton School · <a href="https://github.com/nohamoulma-hub/Holberton-school-Hackathon-Le_Bras">Code source</a></small>
+    </div>
+</footer>
+
+<script>
+// Données de la démo : 3 actions proposées par l'agent pour la demande d'exemple
+const SAMPLE = [
+    { tool: "create_issue", title: "Préparer le poste de Léa", args: 'assignee: <span class="default">"à assigner"</span>, due_date: "2026-10-12"' },
+    { tool: "send_message", title: "Annoncer l'arrivée de Léa à l'équipe", args: 'channel: <span class="default">"general"</span>, recipient: "équipe"' },
+    { tool: "create_calendar_event", title: "Accueil de Léa", args: 'start: "2026-10-12T09:30", duration_min: 30' }
+];
+
+// Libellés lisibles pour chaque statut
+const LABELS = { pending: "pending", executing: "executing", executed: "executed", rejected: "rejected" };
+
+const list = document.getElementById("actions");
+
+// Dessine toutes les cartes à partir de l'état courant (comme un tableau qu'on réaffiche)
+function render(states) {
+    list.innerHTML = "";
+    list.style.display = "grid";
+    list.style.gap = "10px";
+    SAMPLE.forEach((a, i) => {
+        const s = states[i];
+        const card = document.createElement("div");
+        card.className = "action";
+        card.dataset.state = s;
+        const locked = s !== "pending";
+        card.innerHTML = `
+            <div class="action-top">
+                <span class="tool-name">${a.tool}</span>
+                <span class="status s-${s}">${LABELS[s]}</span>
+            </div>
+            <div class="action-title">${a.title}</div>
+            <div class="args">${a.args}</div>
+            <div class="action-btns">
+                <button class="btn btn-approve" type="button" data-i="${i}" data-do="approve" ${locked ? "disabled" : ""}>Approuver</button>
+                <button class="btn btn-reject" type="button" data-i="${i}" data-do="reject" ${locked ? "disabled" : ""}>Refuser</button>
+            </div>`;
+        list.appendChild(card);
+    });
+}
+
+let states = SAMPLE.map(() => "pending");
+
+// Gère un clic : approuver passe par executing puis executed, refuser va direct à rejected
+list.addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-do]");
+    if (!btn) return;
+    const i = Number(btn.dataset.i);
+    if (states[i] !== "pending") return;
+    if (btn.dataset.do === "reject") {
+        states[i] = "rejected";
+        render(states);
+        return;
+    }
+    states[i] = "executing";
+    render(states);
+    setTimeout(() => { states[i] = "executed"; render(states); }, 900);
+});
+
+// Remet toutes les actions en attente
+document.getElementById("reset").addEventListener("click", () => {
+    states = SAMPLE.map(() => "pending");
+    render(states);
+});
+
+render(states);
+</script>
+
+</body></html>
