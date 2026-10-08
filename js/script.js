@@ -38,7 +38,7 @@ const PROJECTS = [
   $("[data-year]").textContent = new Date().getFullYear();
   const initials = PROFILE.name.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase();
   $("[data-initials]").innerHTML = esc(initials) + "<span>.</span>";
-  document.title = PROFILE.name + " — " + PROFILE.role;
+  document.title = PROFILE.name + " | " + PROFILE.role;
 
   /* Projets : une carte par projet, puis une carte « d'autres projets arrivent » */
   $("#pf-projects").innerHTML = PROJECTS.map((p, i) => {
