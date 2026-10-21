@@ -108,9 +108,9 @@ body { margin: 0; }
 .pf-lead em { font-style: italic; color: var(--ink); }
 
 /* ── Projets ── */
-.pf-grid { display: grid; gap: clamp(20px, 2.4vw, 28px); grid-template-columns: 1fr; }
-@media (min-width: 680px) { .pf-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1020px) { .pf-grid { grid-template-columns: repeat(3, 1fr); } }
+.pf-grid { display: grid; gap: clamp(20px, 2.4vw, 28px); grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 740px) { .pf-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1100px) { .pf-grid { grid-template-columns: repeat(3, 1fr); } }
 .pf-card { position: relative; display: flex; flex-direction: column; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; transition: transform .5s var(--ease), box-shadow .5s var(--ease); }
 .pf-card:hover { transform: translateY(-6px); box-shadow: 0 24px 48px -28px rgba(10, 10, 10, .35); }
 .pf-card a.pf-card-link::after { content: ""; position: absolute; inset: 0; z-index: 1; }
@@ -127,12 +127,10 @@ body { margin: 0; }
 .pf-card-body { display: flex; flex-direction: column; gap: 10px; padding: 22px 24px 24px; flex: 1; }
 .pf-card-title { font-family: var(--font-display); font-weight: 500; font-size: 23px; line-height: 1.2; letter-spacing: -.015em; margin: 0; }
 .pf-card-desc { margin: 0; color: var(--ink-soft); font-size: 15px; line-height: 1.55; flex: 1; }
-.pf-card-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 8px; padding-top: 14px; border-top: 1px solid var(--line); }
+.pf-card-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin-top: 8px; padding-top: 14px; border-top: 1px solid var(--line); }
 .pf-card-cta { font-size: 14px; font-weight: 600; color: var(--ink); display: inline-flex; align-items: center; gap: 6px; }
 .pf-arrow { display: inline-block; transition: transform .4s var(--ease); }
 .pf-card:hover .pf-arrow, .pf-contact-row:hover .pf-arrow { transform: translate(3px, -3px); }
-.pf-card-code { position: relative; z-index: 2; font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft); padding: 4px 0; border-bottom: 1px solid transparent; transition: color .3s, border-color .3s; }
-.pf-card-code:hover { color: var(--ink); border-bottom-color: var(--ink); }
 
 /* ── Contact ── */
 .pf-contact { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
@@ -166,7 +164,28 @@ body { margin: 0; }
 .pf-card--more { justify-content: center; gap: 10px; padding: 32px 28px; background: transparent; border-style: dashed; }
 .pf-card--more:hover { transform: none; box-shadow: none; }
 .pf-more-kicker { margin: 0; font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); }
-@media (min-width: 1020px) { .pf-card--more { grid-column: span 2; } }
+@media (min-width: 1100px) { .pf-card--more { grid-column: span 2; } }
 
 /* Miniature avec capture : image entière et centrée, fond clair pour les éventuelles marges */
 .pf-thumb--shot { background: var(--paper); }
+
+/* Boutons de carte : « Voir le site » et logo GitHub, côte à côte */
+.pf-card-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+/* Bouton plein : ouvre le site déployé */
+.pf a.pf-card-site { position: relative; z-index: 2; font-size: 12.5px; font-weight: 600; color: var(--paper); background: var(--ink); padding: 6px 12px; border-radius: 999px; text-decoration: none; white-space: nowrap; transition: opacity .3s var(--ease); }
+.pf a.pf-card-site:hover { opacity: .8; }
+/* Petit rond avec le logo GitHub */
+.pf a.pf-card-gh { position: relative; z-index: 2; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; color: var(--ink-soft); border: 1px solid var(--line); transition: color .3s, border-color .3s; }
+.pf a.pf-card-gh:hover { color: var(--ink); border-color: var(--ink); }
+
+/* Bouton blanc « Présentation » : ouvre la page du projet dans le site */
+.pf a.pf-card-present { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: var(--ink); background: #ffffff; border: 1px solid var(--line); padding: 6px 12px; border-radius: 999px; text-decoration: none; white-space: nowrap; transition: border-color .3s var(--ease); }
+.pf a.pf-card-present:hover { border-color: var(--ink); }
+
+/* Grille projets plus large, pour que les boutons tiennent sur une ligne */
+#projets .pf-wrap { max-width: 1088px; }
+/* Chaque carte garde sa propre hauteur, au lieu d'être étirée sur sa ligne */
+.pf-grid { align-items: stretch; }
+/* Dès 2 colonnes : toutes les lignes ont la même hauteur, donc toutes les cartes aussi */
+@media (min-width: 740px) { .pf-grid { grid-auto-rows: 1fr; } }
+.pf-card-body { padding: 22px 20px 22px; }

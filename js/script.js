@@ -16,11 +16,14 @@ const PROFILE = {
    theme → "ink" | "sand" (couleur de la miniature sans image)
    note  → petite étiquette optionnelle (ex. travail d'équipe) */
 const PROJECTS = [
-  { title: "Le Bras", description: "Un agent opérationnel qui transforme une intention en actions, tout en laissant le contrôle final à l’humain.", stack: ["Python", "FastAPI", "PostgreSQL", "Docker", "HTML", "CSS", "JS", "Claude"], url: "", landing: "projets/le-bras.html", repo: "https://github.com/nohamoulma-hub/Holberton-school-Hackathon-Le_Bras", image: "img/le-bras.jpg", theme: "ink", note: "Projet d’équipe, hackathon" },
-  { title: "Le Sosie", note: "Projet d’équipe, hackathon", description: "Vérification de calculs de dépenses : Python et SQL calculent chacun de leur côté, le serveur compare les deux résultats et l’interface les affiche une fois vérifiés.", stack: ["Python", "Flask", "SQLite", "HTML", "CSS", "JS", "Claude"], url: "", landing: "projets/le-sosie.html", repo: "https://github.com/John-Natty/Holberton-school-Hackathon-le-Sosie/tree/main", image: "img/le-sosie.jpg", theme: "sand" },
+  { title: "Le Bras", description: "Un agent opérationnel qui transforme une intention en actions, tout en laissant le contrôle final à l’humain.", stack: ["Python", "FastAPI", "PostgreSQL", "Docker", "HTML", "CSS", "JS", "Claude"], url: "https://lebras.nohamoulma.fr/", landing: "projets/le-bras.html", repo: "https://github.com/nohamoulma-hub/Holberton-school-Hackathon-Le_Bras", image: "img/le-bras.jpg", theme: "ink", note: "Projet d’équipe, hackathon" },
+  { title: "Le Sosie", note: "Projet d’équipe, hackathon", description: "Vérification de calculs de dépenses : Python et SQL calculent chacun de leur côté, le serveur compare les deux résultats et l’interface les affiche une fois vérifiés.", stack: ["Python", "Flask", "SQLite", "HTML", "CSS", "JS", "Claude"], url: "https://le-sosie.onrender.com", landing: "projets/le-sosie.html", repo: "https://github.com/John-Natty/Holberton-school-Hackathon-le-Sosie/tree/main", image: "img/le-sosie.jpg", theme: "sand" },
   { title: "HBntory Inventor Management", note: "Projet d’équipe", description: "Projet de fin de second trimestre : gestion des stocks d’une entreprise de 3 filiales en France, avec un agent IA qui traite les requêtes grâce aux outils à sa disposition.", stack: ["Python", "SQLite", "SQLAlchemy", "HTML", "CSS", "JS", "REST API"], url: "", landing: "projets/hbntory.html", repo: "https://github.com/Souf-F/HBntory-Inventor-Management-Platform", image: "img/hbntory.jpg", theme: "ink" },
   { title: "Voyager en Martinique", note: "Projet individuel", description: "Un agent IA qui crée un voyage sur mesure en Martinique selon le budget, la durée, les goûts et la météo estimée selon la saison.", stack: ["Python", "PostgreSQL", "HTML", "CSS", "JS", "Claude"], url: "", landing: "projets/martinique.html", repo: "https://github.com/nohamoulma-hub/Projet-Martinique", image: "img/martinique.jpg", theme: "sand" },
 ];
+/* Logo GitHub (icône vectorielle) pour le lien vers le dépôt */
+const GITHUB_ICON = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
+
 /* ═══════════════════════════════════ */
 
 (function () {
@@ -45,7 +48,9 @@ const PROJECTS = [
     const n = String(i + 1).padStart(2, "0");
     const href = p.landing || p.url || p.repo; // priorité : page du projet, puis site déployé, puis GitHub
     const blank = p.landing ? "" : ' target="_blank" rel="noopener"'; // la page du projet s'ouvre dans le même onglet
-    const cta = p.landing ? "Voir la page du projet" : p.url ? "Voir le projet" : "Voir sur GitHub";
+    const cta = p.landing ? "Présentation" : p.url ? "Voir le projet" : "Voir sur GitHub";
+    /* Boutons de la carte : « Voir le site » si déployé, logo GitHub pour le code */
+    const present = `<a class="pf-card-present" href="${esc(href)}"${blank}>${cta} <span class="pf-arrow" aria-hidden="true">↗</span></a>`; // bouton blanc vers la page du projet
     const thumb = p.image
       ? `<img src="${esc(p.image)}" alt="Capture d’écran de ${esc(p.title)}" loading="lazy">`
       : `<div class="pf-thumb-art"><span class="pf-thumb-num">${n}</span><span class="pf-thumb-stack">${esc((p.stack || [])[0] || "")}</span></div>`;
@@ -57,8 +62,11 @@ const PROJECTS = [
         <p class="pf-card-desc">${esc(p.description)}</p>
         <ul class="pf-tags">${(p.stack || []).map((t) => `<li class="pf-tag">${esc(t)}</li>`).join("")}</ul>
         <div class="pf-card-foot">
-          <span class="pf-card-cta">${cta} <span class="pf-arrow" aria-hidden="true">${p.landing ? "→" : "↗"}</span></span>
-          ${(p.landing || p.url) && p.repo ?`<a class="pf-card-code" href="${esc(p.repo)}" target="_blank" rel="noopener">Code source</a>` : ""}
+            ${p.url ? `<a class="pf-card-site" href="${esc(p.url)}" target="_blank" rel="noopener">Voir le site <span aria-hidden="true">↗</span></a>` : present}
+          <div class="pf-card-actions">
+              ${p.url ? present : ""}
+            ${(p.landing || p.url) && p.repo ? `<a class="pf-card-gh" href="${esc(p.repo)}" target="_blank" rel="noopener" title="Code source sur GitHub" aria-label="Code source de ${esc(p.title)} sur GitHub">${GITHUB_ICON}</a>` : ""}
+          </div>
         </div>
       </div>
     </article>`;
