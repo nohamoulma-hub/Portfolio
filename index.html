@@ -19,6 +19,8 @@
         <li><a class="pf-navlink" href="#apropos">À propos</a></li>
         <li><a class="pf-navlink" href="#projets">Projets</a></li>
         <li><a class="pf-navlink" href="#contact">Contact</a></li>
+        <!-- Bouton de téléchargement du CV, à droite de Contact -->
+        <li><a class="pf-cv" href="cv/CV_Alternance_Noham_Oulma.pdf" download="CV_Alternance_Noham_Oulma.pdf" aria-label="Télécharger mon CV (PDF)" title="Télécharger mon CV (PDF)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg><span><span class="pf-cv-long">Mon </span>CV</span></a></li>
       </ul>
     </nav>
   </div>
@@ -32,6 +34,8 @@
     <p class="pf-role" id="pf-role"><span data-type="role" aria-hidden="true"></span><span class="pf-caret" data-caret="role" aria-hidden="true" hidden></span></p>
     <div class="pf-hero-foot" data-after-type>
       <span class="pf-badge"><i aria-hidden="true"></i>À la recherche d’une alternance</span>
+      <span class="pf-badge"><i aria-hidden="true"></i>Ouvert aux stages</span>
+      <span class="pf-badge"><i aria-hidden="true"></i>Ouvert à un CDI</span>
     </div>
     <a class="pf-scroll" href="#apropos" data-after-type><b aria-hidden="true"></b>Défiler</a>
   </section>
@@ -74,9 +78,19 @@
           <p class="pf-kicker pf-reveal">02 — Réalisations</p>
           <h2 class="pf-h2 pf-reveal" style="--d:1" id="pf-h-projects">Projets personnels</h2>
         </div>
-        <p class="pf-head-note pf-reveal" style="--d:2">Cliquez sur une carte pour découvrir le projet.</p>
+        <div class="pf-head-side">
+          <p class="pf-head-note pf-reveal" style="--d:2">Cliquez sur une carte pour découvrir le projet.</p>
+          <!-- Boutons du carrousel -->
+          <div class="pf-nav-btns pf-reveal" style="--d:2">
+            <button type="button" class="pf-nav-btn" id="pf-prev" aria-label="Projets précédents"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+            <button type="button" class="pf-nav-btn" id="pf-next" aria-label="Projets suivants"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
       </div>
-      <div class="pf-grid" id="pf-projects"></div>
+      <!-- Carrousel : les cartes sont ajoutées par js/script.js -->
+      <div class="pf-carousel pf-reveal" style="--d:2">
+        <div class="pf-track" id="pf-projects" tabindex="0" role="region" aria-roledescription="carrousel" aria-label="Projets personnels"></div>
+      </div>
     </div>
   </section>
 

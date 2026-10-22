@@ -75,6 +75,7 @@ body { margin: 0; }
 .pf-hero-foot.is-visible { opacity: 1; transform: none; }
 .pf-badge { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px 8px 14px; border-radius: 999px; background: var(--paper); border: 1px solid var(--line); font-size: 14px; font-weight: 500; }
 .pf-badge i { width: 8px; height: 8px; border-radius: 50%; background: var(--ink); box-shadow: 0 0 0 4px rgba(10, 10, 10, .12); }
+
 .pf-scroll { position: absolute; left: var(--gutter); bottom: 32px; display: flex; align-items: center; gap: 12px; font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); opacity: 0; transition: opacity 1s var(--ease) .3s; }
 .pf-scroll.is-visible { opacity: 1; }
 .pf-scroll b { position: relative; display: block; width: 1px; height: 40px; background: var(--line); overflow: hidden; }
@@ -108,9 +109,6 @@ body { margin: 0; }
 .pf-lead em { font-style: italic; color: var(--ink); }
 
 /* ── Projets ── */
-.pf-grid { display: grid; gap: clamp(20px, 2.4vw, 28px); grid-template-columns: minmax(0, 1fr); }
-@media (min-width: 740px) { .pf-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1100px) { .pf-grid { grid-template-columns: repeat(3, 1fr); } }
 .pf-card { position: relative; display: flex; flex-direction: column; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; transition: transform .5s var(--ease), box-shadow .5s var(--ease); }
 .pf-card:hover { transform: translateY(-6px); box-shadow: 0 24px 48px -28px rgba(10, 10, 10, .35); }
 .pf-card a.pf-card-link::after { content: ""; position: absolute; inset: 0; z-index: 1; }
@@ -164,7 +162,6 @@ body { margin: 0; }
 .pf-card--more { justify-content: center; gap: 10px; padding: 32px 28px; background: transparent; border-style: dashed; }
 .pf-card--more:hover { transform: none; box-shadow: none; }
 .pf-more-kicker { margin: 0; font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); }
-@media (min-width: 1100px) { .pf-card--more { grid-column: span 2; } }
 
 /* Miniature avec capture : image entière et centrée, fond clair pour les éventuelles marges */
 .pf-thumb--shot { background: var(--paper); }
@@ -185,7 +182,42 @@ body { margin: 0; }
 /* Grille projets plus large, pour que les boutons tiennent sur une ligne */
 #projets .pf-wrap { max-width: 1088px; }
 /* Chaque carte garde sa propre hauteur, au lieu d'être étirée sur sa ligne */
-.pf-grid { align-items: stretch; }
 /* Dès 2 colonnes : toutes les lignes ont la même hauteur, donc toutes les cartes aussi */
-@media (min-width: 740px) { .pf-grid { grid-auto-rows: 1fr; } }
 .pf-card-body { padding: 22px 20px 22px; }
+
+/* ── Carrousel des projets : défilement horizontal fluide ── */
+/* Nombre de cartes visibles (3 sur grand écran, 2 sur tablette, une et un aperçu de la suivante sur téléphone) */
+.pf-carousel { --gap: clamp(20px, 2.4vw, 28px); --per-view: 3; }
+@media (max-width: 1099px) { .pf-carousel { --per-view: 2; } }
+/* Rail qui défile : accroche chaque carte, sans barre de défilement visible */
+/* Rail à défilement libre : déborde de la zone de contenu pour laisser voir les cartes voisines */
+.pf-track { --bleed: calc(var(--gutter) + max(0px, (100vw - 1088px) / 2)); display: flex; gap: var(--gap); overflow-x: auto; scroll-snap-type: x proximity; scroll-padding-inline: var(--bleed); scroll-behavior: smooth; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin: -12px calc(var(--bleed) * -1) -40px; padding: 12px var(--bleed) 40px; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 calc(var(--bleed) * .9), #000 calc(100% - var(--bleed) * .9), transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 calc(var(--bleed) * .9), #000 calc(100% - var(--bleed) * .9), transparent 100%); }
+.pf-track::-webkit-scrollbar { display: none; }
+/* Chaque carte garde la même largeur ; toutes ont la même hauteur grâce au flex */
+/* Chaque carte : même largeur, floue et estompée selon --out (calculé par js/script.js) */
+.pf-track > .pf-card { flex: 0 0 calc((100% - (var(--per-view) - 1) * var(--gap)) / var(--per-view)); scroll-snap-align: start; filter: blur(calc(var(--out, 0) * 7px)); opacity: calc(1 - var(--out, 0) * .55); }
+/* Téléphone : une carte presque pleine largeur, avec 40 px de la suivante visibles pour inviter à glisser */
+@media (max-width: 739px) { .pf-track > .pf-card { flex-basis: calc(100% - 40px); } }
+/* Zone note + boutons à droite du titre */
+.pf-head-side { display: grid; gap: 16px; justify-items: start; }
+@media (min-width: 860px) { .pf-head-side { justify-items: end; } }
+.pf-nav-btns { display: flex; gap: 10px; }
+/* Boutons ronds précédent / suivant */
+.pf-nav-btn { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--paper); color: var(--ink); display: grid; place-items: center; cursor: pointer; transition: background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease), opacity .3s var(--ease); }
+.pf-nav-btn:hover:not(:disabled) { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.pf-nav-btn:disabled { opacity: .35; cursor: default; }
+@media (prefers-reduced-motion: reduce) { .pf-track { scroll-behavior: auto; } }
+
+/* Les cartes qui dépassent sur les côtés du carrousel ne doivent pas créer de défilement horizontal de la page */
+#projets { overflow-x: clip; }
+
+/* Bouton « CV » dans la barre du haut : pastille noire avec une icône de téléchargement */
+.pf-nav a.pf-cv { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 12.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--paper); background: var(--ink); padding: 8px 14px; border-radius: 999px; white-space: nowrap; transition: opacity .3s var(--ease); }
+.pf-nav a.pf-cv:hover { opacity: .85; }
+.pf-nav a.pf-cv svg { transition: transform .3s var(--ease); }
+.pf-nav a.pf-cv:hover svg { transform: translateY(2px); }
+/* Sur petit écran : seulement « CV », pour que la barre tienne sur une ligne */
+@media (max-width: 560px) { .pf-cv-long { display: none; } .pf-nav a.pf-cv { padding: 7px 12px; } }
+
+/* Les liens du menu et le bouton CV sont alignés sur la même ligne centrale */
+.pf-nav ul { align-items: center; }
